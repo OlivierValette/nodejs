@@ -1,0 +1,122 @@
+extends layout
+
+block content
+    section.bg-blue
+        h1 R&eacute;union de rentr&eacute;e
+    section.container
+        table.poll
+            thead
+                tr
+                    th
+                    th
+                        .date-container
+                            .month Jan
+                            .date 12
+                            .day Samedi
+                    th
+                        .date-container
+                            .month Jan
+                            .date 13
+                            .day Dimanche
+                    th
+                        .date-container
+                            .month Jan
+                            .date 19
+                            .day Samedi
+                    th
+                        .date-container
+                            .month Jan
+                            .date 20
+                            .day Dimanche
+                    th
+                        .date-container
+                            .month Jan
+                            .date 26
+                            .day Samedi
+                    th
+                        .date-container
+                            .month Jan
+                            .date 27
+                            .day Dimanche
+                    th
+            tbody
+                tr
+                    td
+                        .user-container
+                            img(src='https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32')
+                            span John Doe
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.unavailable
+                        i.fa.fa-3x.fa-times-circle
+                    td.unavailable
+                        i.fa.fa-3x.fa-times-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.unavailable
+                        i.fa.fa-3x.fa-times-circle
+                    td
+                        a(href='#')
+                            i.fa.fa-2x.fa-edit
+                tr
+                    td
+                        .user-container
+                            img(src='https://www.gravatar.com/avatar/3f8389957d0c59bb0bd5433e86b53a19?s=32')
+                            span Jack Fieldman
+                    td.unavailable
+                        i.fa.fa-3x.fa-times-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.unavailable
+                        i.fa.fa-3x.fa-times-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.unavailable
+                        i.fa.fa-3x.fa-times-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td
+                        a(href='#')
+                            i.fa.fa-2x.fa-edit
+                tr
+                    td
+                        .user-container
+                            img(src='https://www.gravatar.com/avatar/7fda1da9c34e978d5990afd7f58ca0f4?s=32')
+                            span Howard Thomson
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.unavailable
+                        i.fa.fa-3x.fa-times-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td.available
+                        i.fa.fa-3x.fa-check-circle
+                    td
+                        a(href='#')
+                            i.fa.fa-2x.fa-edit
+                tr
+                    td
+                        .user-form-container
+                            input(type='email', name='email', placeholder='Email')
+                            input(type='text', name='name', placeholder='Nom Prénom')
+                    td
+                        input(type='checkbox')
+                    td
+                        input(type='checkbox')
+                    td
+                        input(type='checkbox')
+                    td
+                        input(type='checkbox')
+                    td
+                        input(type='checkbox')
+                    td
+                        input(type='checkbox')
+                    td
+                        button.button.button-primary(type='submit')
+                            i.fa.fa-2x.fa-save
