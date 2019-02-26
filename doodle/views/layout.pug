@@ -2,6 +2,7 @@ doctype html
 html
     head
         title Doodle - #{title}
+        block stylesheets
         link(rel='stylesheet', href='/public/css/normalize.css')
         link(rel='stylesheet', href='/public/css/skeleton.css')
         link(rel='stylesheet', href='/public/css/style.css')
@@ -9,4 +10,4 @@ html
     body
         block content
 
-        script(src='/public/js/script.js')
+        block javascripts

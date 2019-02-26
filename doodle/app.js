@@ -1,10 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 
 // define parameter
 app.set('view engine', 'pug');
+
+// database connection
+// TODO: à passer dans les variables d'environnement
+const url = 'mongodb://localhost:27017';
+const dbName = 'doodle';
+const client = new MongoClient(url, { useNewUrlParser: true });
 
 // middleware to define asset directory (public) and its path (./public)
 app.use('/public', express.static('public'));
@@ -27,7 +34,7 @@ app.get('/', (req, res) => {
     res.render('index', { title: 'Accueil', username: 'OlivierValette'});
 });
 
-app.get('/doodle', (req, res) => {
+app.get('/doodle/:id', (req, res) => {
     const { id } = req.params;
     res.render('doodle', { id: id});
 });
@@ -37,8 +44,24 @@ app.get('/doodle-new', (req, res) => {
 });
 
 app.post('/doodle-new', (req, res) => {
-    console.log(req.body);
-    res.end();
+    let doodle = req.body;
+
+    doodle.created_at = new Date();
+
+    // connect to database
+    client.connect(err => {
+        if (err) console.log(err);
+
+        // use doodle collection
+        const db = client.db(dbName);
+
+        // insert new document in doodles
+        db.collection('doodles').insertOne(doodle, (err, result) => {
+            if (err) console.log(err);
+            res.json(doodle);
+        });
+    });
+
 });
 
 app.listen(8000);

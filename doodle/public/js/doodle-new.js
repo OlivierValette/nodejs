@@ -33,7 +33,7 @@ btnValid.addEventListener('click', event => {
         },
         body: JSON.stringify(data),
     })
-        .then(response => response.json)
-        .then(doodle => console.log(doodle.id));
+        .then(response => response.json())
+        .then(doodle => window.location.replace('/doodle/' + doodle._id));
 
 });
