@@ -2,6 +2,8 @@ const http = require('http');
 const url = require('url');
 const EventEmitter = require('events');
 const fs = require('fs');
+const path = require('path');
+const mime = require( 'mime-types');
 
 class App extends EventEmitter {
 
@@ -15,17 +17,30 @@ class App extends EventEmitter {
         this.server = http.createServer((req, res) => {
             // req.url returns active url, parsed in an URL object
             // then the pathname property is assigned to pathname variable
-            const { pathname } = url.parse(req.url);
-            console.log(pathname);
+            // and the same for query property (url parameters)
+            const { pathname, query } = url.parse(req.url, true);
+            // storing parameters in req object to be used by routes in index.js
+            req.query = query;
 
-            // controls that route exists
-            if (pathname in this.routes) {
-                const cb = this.routes[pathname];
-                res.writeHead(200, {'Content-type': 'text/html; charset=utf-8'});
-                res.render = (filename, variables) => this.render(req, res, filename, variables);
-                cb(req, res);
-            } else {
-                this.notFound(req, res);
+            // no routing for static files rendering
+            if (this.staticDir && pathname.startsWith(this.staticDir)) {
+                path.join(__dirname, pathname);
+                fs.readFile(path.join(__dirname, pathname), function(err, data) {
+                    res.writeHead(200, {'Content-type': mime.contentType(path.extname(pathname))});
+                    res.end(data, 'utf-8');
+                });
+            }
+            // routing management
+            else {
+                // controls route exists
+                if (pathname in this.routes) {
+                    const cb = this.routes[pathname];
+                    res.writeHead(200, {'Content-type': 'text/html; charset=utf-8'});
+                    res.render = (filename, variables) => this.render(req, res, filename, variables);
+                    cb(req, res);
+                } else {
+                    this.notFound(req, res);
+                }
             }
         });
 
@@ -34,6 +49,10 @@ class App extends EventEmitter {
 
     addRoute(url, cb) {
         this.routes[url] = cb;
+    }
+
+    setStaticDir(dir) {
+        this.staticDir = dir;
     }
 
     notFound(req, res) {
