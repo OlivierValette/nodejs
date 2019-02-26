@@ -1,5 +1,10 @@
 extends layout
 
 block content
-    h1= username
-    p Bienvenue...
+    section.homepage.bg-blue
+        h1= username
+        p Welcome to doodle...
+
+        form(action='/doodle/:id' method='get')
+            input(type="text" name="id" placeholder="Doodle ID")
+            input(type="submit" value="Go!")
