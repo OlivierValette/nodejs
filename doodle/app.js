@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // middleware example : ip address of connected user
 app.use((req, res, next) => {
-    console.log(req.ip);
+    // console.log(req.ip);
     next();
 });
 
@@ -35,4 +35,10 @@ app.get('/doodle', (req, res) => {
 app.get('/doodle-new', (req, res) => {
     res.render('doodle-new');
 });
+
+app.post('/doodle-new', (req, res) => {
+    console.log(req.body);
+    res.end();
+});
+
 app.listen(8000);
