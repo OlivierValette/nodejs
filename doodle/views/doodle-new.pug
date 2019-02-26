@@ -2,13 +2,13 @@ extends layout
 
 block content
     section.bg-blue
-        h1 Nouveau Doodle
+        h1 Création d'un doodle
     section.container.form-new
         label(for='title') Nom du Doodle
         input#title(type='text', placeholder='Nom du Doodle')
         ul#liste-dates
         form#form-dates
-            input(type='date')
+            input(type='date' name='date')
             button.button.button-primary(type='submit')
                 i.fa.fa-arrow-right
                 |  Ajouter
