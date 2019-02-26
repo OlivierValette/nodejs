@@ -27,9 +27,12 @@ app.get('/', (req, res) => {
     res.render('index', { title: 'Accueil', username: 'OlivierValette'});
 });
 
-app.get('/doodle/:id', (req, res) => {
+app.get('/doodle', (req, res) => {
     const { id } = req.params;
     res.render('doodle', { id: id});
 });
 
+app.get('/doodle-new', (req, res) => {
+    res.render('doodle-new');
+});
 app.listen(8000);
