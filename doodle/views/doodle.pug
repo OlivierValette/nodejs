@@ -2,42 +2,18 @@ extends layout
 
 block content
     section.bg-blue
-        h1 R&eacute;union de rentr&eacute;e
+        h1= doodle.title
     section.container
         table.poll
             thead
                 tr
                     th
-                    th
-                        .date-container
-                            .month Jan
-                            .date 12
-                            .day Samedi
-                    th
-                        .date-container
-                            .month Jan
-                            .date 13
-                            .day Dimanche
-                    th
-                        .date-container
-                            .month Jan
-                            .date 19
-                            .day Samedi
-                    th
-                        .date-container
-                            .month Jan
-                            .date 20
-                            .day Dimanche
-                    th
-                        .date-container
-                            .month Jan
-                            .date 26
-                            .day Samedi
-                    th
-                        .date-container
-                            .month Jan
-                            .date 27
-                            .day Dimanche
+                    each date in doodle.dates
+                        th
+                            .date-container
+                                .month #{moment(date).format('MMM')}
+                                .date #{moment(date).format('D')}
+                                .day #{moment(date).format('dddd')}
                     th
             tbody
                 tr
