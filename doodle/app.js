@@ -61,18 +61,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/doodle', (req, res, next) => {
-    const { id } = req.query;
-
     // control id
-    let objectId = null;
+    const { id } = req.query;
+    let oId = null;
     try {
-        objectId = ObjectID(id);
+        oId = ObjectID(id);
     } catch (err) {
         next();
     }
 
     // get document in doodles
-    app.locals.db.collection('doodles').findOne({'_id': objectId}, (err, doodle) => {
+    app.locals.db.collection('doodles').findOne({'_id': oId}, (err, doodle) => {
         if (err) console.log(err);
         if (!doodle) next();
         res.render('doodle', { doodle: doodle});
@@ -91,15 +90,40 @@ app.post('/doodle-new', (req, res) => {
     doodle.users = [];
 
     // insert new document in doodles
-    app.locals.db.collection('doodles').insertOne(doodle, err => {
+    app.locals.db.collection('doodles')
+        .insertOne(doodle, err => {
         if (err) console.log(err);
         res.json(doodle);
     });
 
 });
 
-// Route 404
+app.post('/user-new', (req, res, next) => {
+    let newUser = req.body;
+    // retrieve and control id
+    let oId = null;
+    try {
+        oId = ObjectID(newUser.id);
+    } catch (err) {
+        console.log('Object Id error:', err);
+        next();
+    }
+    // remove id from object newUser
+    delete newUser.id;
+    console.log(newUser);
+    // update document in doodles
+    app.locals.db.collection('doodles').updateOne(
+            {'_id': oId},
+            {$push: { users: newUser } },
+            err => {
+                console.log('Database update error:', err);
+                res.redirect('/doodle?id=' + oId)
+            }
+    );
+});
+
+// Route 404 (last route)
 app.use((req, res) => {
     res.status(404);
-    res.end(404);
+    res.end('404');
 });

@@ -4,95 +4,51 @@ block content
     section.bg-blue
         h1= doodle.title
     section.container
-        table.poll
-            thead
-                tr
-                    th
-                    each date in doodle.dates
+        form(action='/user-new', method='POST')
+            table.poll
+                thead
+                    tr
                         th
-                            .date-container
-                                .month #{moment(date).format('MMM')}
-                                .date #{moment(date).format('D')}
-                                .day #{moment(date).format('dddd')}
-                    th
-            tbody
-                tr
-                    td
-                        .user-container
-                            img(src='https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32')
-                            span John Doe
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.unavailable
-                        i.fa.fa-3x.fa-times-circle
-                    td.unavailable
-                        i.fa.fa-3x.fa-times-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.unavailable
-                        i.fa.fa-3x.fa-times-circle
-                    td
-                        a(href='#')
-                            i.fa.fa-2x.fa-edit
-                tr
-                    td
-                        .user-container
-                            img(src='https://www.gravatar.com/avatar/3f8389957d0c59bb0bd5433e86b53a19?s=32')
-                            span Jack Fieldman
-                    td.unavailable
-                        i.fa.fa-3x.fa-times-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.unavailable
-                        i.fa.fa-3x.fa-times-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.unavailable
-                        i.fa.fa-3x.fa-times-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td
-                        a(href='#')
-                            i.fa.fa-2x.fa-edit
-                tr
-                    td
-                        .user-container
-                            img(src='https://www.gravatar.com/avatar/7fda1da9c34e978d5990afd7f58ca0f4?s=32')
-                            span Howard Thomson
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.unavailable
-                        i.fa.fa-3x.fa-times-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td.available
-                        i.fa.fa-3x.fa-check-circle
-                    td
-                        a(href='#')
-                            i.fa.fa-2x.fa-edit
-                tr
-                    td
-                        .user-form-container
-                            input(type='email', name='email', placeholder='Email')
-                            input(type='text', name='name', placeholder='Nom Prénom')
-                    td
-                        input(type='checkbox')
-                    td
-                        input(type='checkbox')
-                    td
-                        input(type='checkbox')
-                    td
-                        input(type='checkbox')
-                    td
-                        input(type='checkbox')
-                    td
-                        input(type='checkbox')
-                    td
-                        button.button.button-primary(type='submit')
-                            i.fa.fa-2x.fa-save
+                        each date in doodle.dates
+                            th
+                                .date-container
+                                    .month #{moment(date).format('MMM')}
+                                    .date #{moment(date).format('D')}
+                                    .day #{moment(date).format('dddd')}
+                        th
+                tbody
+                    if doodle.users
+                        each user in doodle.users
+                            tr
+                                td
+                                    .user-container
+                                        img(src='https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32')
+                                        span= user.name
+                                td.available
+                                    i.fa.fa-3x.fa-check-circle
+                                td.available
+                                    i.fa.fa-3x.fa-check-circle
+                                td.unavailable
+                                    i.fa.fa-3x.fa-times-circle
+                                td.unavailable
+                                    i.fa.fa-3x.fa-times-circle
+                                td.available
+                                    i.fa.fa-3x.fa-check-circle
+                                td.unavailable
+                                    i.fa.fa-3x.fa-times-circle
+                                td
+                                    a(href='#')
+                                        i.fa.fa-2x.fa-edit
+                    tr
+                        td
+                            .user-form-container
+                                input(type='email', name='email', placeholder='Email')
+                                input(type='text', name='name', placeholder='Nom Prénom')
+                        each date in doodle.dates
+                            td
+                                input(type='checkbox', name='dates[]', value=date)
+                        td
+                            // parsing doodle id with hidden input
+                            input(type='hidden', name='id', value=doodle._id)
+                            button.button.button-primary(type='submit')
+                                i.fa.fa-2x.fa-save
