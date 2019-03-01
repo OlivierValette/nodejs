@@ -113,14 +113,34 @@ app.post('/user-new', (req, res, next) => {
     // remove id from object newUser
     delete newUser.id;
     console.log(newUser);
+
+    // delete user if exists (its an update not a create)
+
+    app.locals.db.collection('doodles').findAndModify({
+        query: { '_id': oId },
+        update: { $set: { "users.$[element]": newUser } },
+        upsert: true,
+        arrayFilters: [ { "element.email": newUser.email } ]
+    });
+    res.redirect('/doodle?id=' + oId);
+/*
+    app.locals.db.collection('doodles').updateOne(
+        { '_id': oId },
+        { $set: { "users.$[element]": newUser } },
+        { arrayFilters: [
+                    { "element.email": newUser.email },
+                ],
+                upsert: true },
+        err => {
+            if (err) console.log('Database update error:', err);
+            res.redirect('/doodle?id=' + oId)
+            }
+    );*/
+
     // update document in doodles
     app.locals.db.collection('doodles').updateOne(
             {'_id': oId},
             {$push: { users: newUser } },
-            err => {
-                if (err) console.log('Database update error:', err);
-                res.redirect('/doodle?id=' + oId)
-            }
     );
 });
 

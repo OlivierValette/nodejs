@@ -23,9 +23,9 @@ block content
                                 td
                                     .user-container
                                         img(src='https://www.gravatar.com/avatar/' + md5(user.email) + '?d=retro&s=32')
-                                        span= user.name
+                                        span(data-email=user.email)= user.name
                                 each date in doodle.dates
-                                    - let checked = user.dates !== undefined && user.dates.includes(date)
+                                    - let checked = user.dates && user.dates.includes(date)
                                     td(class=checked?'available':'unavailable')
                                         i.fa.fa-3x(class=checked?'fa-times-circle':'fa-check-circle')
                                 td
@@ -44,3 +44,6 @@ block content
                             input(type='hidden', name='id', value=doodle._id)
                             button.button.button-primary(type='submit')
                                 i.fa.fa-2x.fa-save
+
+block append javascipts
+    script(src='/public/js/doodle.js')
