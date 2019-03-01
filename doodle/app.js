@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 const moment = require('moment');
+const md5 = require('md5');
 
 const app = express();
 
@@ -10,6 +11,7 @@ const app = express();
 app.set('view engine', 'pug');
 moment.locale('fr');
 app.locals.moment = moment;
+app.locals.md5 = md5;
 
 // --------------------------------------------------------------------------
 // database connection
@@ -116,7 +118,7 @@ app.post('/user-new', (req, res, next) => {
             {'_id': oId},
             {$push: { users: newUser } },
             err => {
-                console.log('Database update error:', err);
+                if (err) console.log('Database update error:', err);
                 res.redirect('/doodle?id=' + oId)
             }
     );

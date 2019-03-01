@@ -22,28 +22,20 @@ block content
                             tr
                                 td
                                     .user-container
-                                        img(src='https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32')
+                                        img(src='https://www.gravatar.com/avatar/' + md5(user.email) + '?d=retro&s=32')
                                         span= user.name
-                                td.available
-                                    i.fa.fa-3x.fa-check-circle
-                                td.available
-                                    i.fa.fa-3x.fa-check-circle
-                                td.unavailable
-                                    i.fa.fa-3x.fa-times-circle
-                                td.unavailable
-                                    i.fa.fa-3x.fa-times-circle
-                                td.available
-                                    i.fa.fa-3x.fa-check-circle
-                                td.unavailable
-                                    i.fa.fa-3x.fa-times-circle
+                                each date in doodle.dates
+                                    - let checked = user.dates !== undefined && user.dates.includes(date)
+                                    td(class=checked?'available':'unavailable')
+                                        i.fa.fa-3x(class=checked?'fa-times-circle':'fa-check-circle')
                                 td
                                     a(href='#')
                                         i.fa.fa-2x.fa-edit
                     tr
                         td
                             .user-form-container
-                                input(type='email', name='email', placeholder='Email')
-                                input(type='text', name='name', placeholder='Nom Prénom')
+                                input(type='email', name='email', placeholder='Email', required)
+                                input(type='text', name='name', placeholder='Nom Prénom', required)
                         each date in doodle.dates
                             td
                                 input(type='checkbox', name='dates[]', value=date)
