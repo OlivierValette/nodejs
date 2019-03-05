@@ -17,6 +17,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,14 +31,16 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// connect database with mongoose
 mongoose.connect('mongodb://localhost/chat', { useNewUrlParser: true });
 app.locals.db = mongoose.connection;
 
+// routing via routes js files
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/messages', messageRouter);
 
-// catch 404 and forward to error handler
+// if none, catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });

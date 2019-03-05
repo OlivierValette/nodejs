@@ -2,12 +2,17 @@ const express = require('express');
 const router = express.Router();
 const Message = require('../models/Message');
 
-// POST message page
-router.post('/', function(req, res, next) {
+// POST API new message - storing to DB
+router.post('/', function(req, res) {
      const message = new Message(req.body);
      message.save().then(msg => res.json(msg));
 });
 
-// GET message page
+// GET API message list from DB
+router.get('/', function(req, res) {
+     Message.find()
+         .then(messages=> res.json(messages))
+         .catch(err => console.error(err))
+});
 
 module.exports = router;
