@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const Message = require('../models/Message');
 
-/* GET message page. */
+// POST message page
 router.post('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+     const message = new Message(req.body);
+     message.save().then(msg => res.json(msg));
 });
+
+// GET message page
 
 module.exports = router;
