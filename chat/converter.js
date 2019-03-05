@@ -30,5 +30,23 @@ module.exports = {
             }
         }
         return Number(result.toFixed(2));
+    },
+
+    distance: (dist, from, to) => {
+
+        const units = ['m', 'k'];
+        if (!units.includes(from) || !units.includes(to)) {
+            throw new Error('Invalid unit');
+        }
+
+        let result = null;
+        if (from === to) {
+            result = dist;
+        } else if (from === "k") {
+            result =  dist / 1.609;
+        } else {
+            result =  dist * 1.609;
+        }
+        return Number(result.toFixed(2));
     }
 };
