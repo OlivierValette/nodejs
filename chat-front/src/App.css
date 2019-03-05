@@ -34,11 +34,15 @@
   border-radius: 5px;
   margin: 0;
   padding: 0;
-  width: 100px;
+}
+
+.chat-message blockquote p {
+  margin: 5px 0 2px 0;
+  padding: 0;
 }
 
 .chat-message cite {
-  border-radius: 5px;
+  color: #005cbf;
 }
 
 .chat-message blockquote p::before {
