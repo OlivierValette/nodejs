@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import FormMessage from "./components/FormMessage";
 import ListMessages from "./components/ListMessages";
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:4001');
 
 class App extends Component {
 

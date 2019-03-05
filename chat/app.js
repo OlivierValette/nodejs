@@ -33,6 +33,19 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// socket.io
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+// start http server on port '4001'
+http.listen(4001, function(){
+  console.log('listening on http://localhost:4001');
+});
+
 // connect database with mongoose
 mongoose.connect('mongodb://localhost/chat', { useNewUrlParser: true });
 app.locals.db = mongoose.connection;
