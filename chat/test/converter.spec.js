@@ -18,7 +18,11 @@ describe('Test converter', function() {
     });
 
     it('should not accept other than °C, °F or K', function () {
-        assert.throws(() => converter.temperature(5, "t", "f"), {name: 'Error', message: 'Invalid unit'}, 'Wrong temperature unit failed!');
+        assert.throws(function () {
+            converter.temperature(5, "t", "f");
+            },
+            {name: 'Error', message: 'Invalid unit'},
+            'Wrong temperature unit failed!');
     });
 
 });
