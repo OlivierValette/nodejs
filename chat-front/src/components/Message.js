@@ -3,11 +3,11 @@ import React, {Component} from 'react';
 class Message extends Component {
     render() {
         return (
-            <div>
+            <div className="chat-message">
                 <blockquote>
                     <p>{this.props.content}</p>
-                    <cite>{this.props.username}</cite>
                 </blockquote>
+                <cite>{this.props.username}</cite>
             </div>
         );
     }

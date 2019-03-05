@@ -23,6 +23,32 @@
   color: #61dafb;
 }
 
+.chat-message {
+  font-size: small;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-message blockquote {
+  background: #313c48;
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  width: 100px;
+}
+
+.chat-message cite {
+  border-radius: 5px;
+}
+
+.chat-message blockquote p::before {
+  content: '\201C';
+}
+
+.chat-message blockquote p::after {
+  content: '\201D';
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

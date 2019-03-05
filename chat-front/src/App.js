@@ -17,14 +17,16 @@ class App extends Component {
         fetch('http://localhost:4000/messages')
             .then(response => response.json())
             .then(data => this.setState({ messages: data }))
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+
+        socket.on('new message', message => this.setState({ messages: [message, ...this.state.messages] }));
     }
 
     render() {
         return (
           <div className="App">
             <header className="App-header">
-              <FormMessage/>
+              <FormMessage socket={socket}/>
               <ListMessages messages={this.state.messages}/>
             </header>
           </div>

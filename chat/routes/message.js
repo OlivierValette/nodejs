@@ -10,7 +10,7 @@ router.post('/', function(req, res) {
 
 // GET API message list from DB
 router.get('/', function(req, res) {
-     Message.find()
+     Message.find().sort('-createdAt')
          .then(messages=> res.json(messages))
          .catch(err => console.error(err))
 });

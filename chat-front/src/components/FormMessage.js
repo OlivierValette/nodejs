@@ -9,7 +9,6 @@ class FormMessage extends Component {
 
     handleChange(event) {
         event.preventDefault();
-        // biding
         this.setState({ [event.target.name]: event.target.value});
     }
 
@@ -23,14 +22,23 @@ class FormMessage extends Component {
             body: JSON.stringify(this.state),
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                // emit 'new message' event to server
+                this.props.socket.emit('new message', data);
+                // empty content of message input
+                this.setState({content: ''});
+            })
     }
 
     render() {
         return (
             <form onSubmit={event => this.handleSubmit(event)}>
-                <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={event => this.handleChange(event)}/>
-                <textarea name="content" value={this.state.content} onChange={event => this.handleChange(event)}></textarea>
+                <div className="form-group">
+                    <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={event => this.handleChange(event)}/>
+                </div>
+                <div className="form-group">
+                    <textarea name="content" cols="20" rows="5" value={this.state.content} onChange={event => this.handleChange(event)}></textarea>
+                </div>
                 <input type="submit" />
             </form>
         );
