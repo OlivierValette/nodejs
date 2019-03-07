@@ -1,3 +1,5 @@
+const request = require('request');
+
 // converter.js
 module.exports = {
     temperature: (temp, from, to) => {
@@ -48,5 +50,13 @@ module.exports = {
             result =  dist * 1.609;
         }
         return Number(result.toFixed(2));
+    },
+
+    currencies: (amount, from, to, callback) => {
+        request(`https://api.exchangeratesapi.io/latest?base=${from}&symbols=${to}`, (err, response, body) => {
+            const data = JSON.parse(body);
+            callback(data.rates[to] * amount);
+        });
     }
+
 };

@@ -41,4 +41,16 @@ describe('Test converter', function() {
         });
 
     });
+
+    describe('#currencies', function () {
+
+        it('should convert currencies', function(done) {
+            converter.currencies(5, "EUR", "USD", function(value) {
+                assert.strictEqual(value, 5.6525, 'Euro to Dollars conversion failed');
+                done();
+            });
+        });
+
+    });
+
 });
